@@ -1,8 +1,5 @@
-from nodes.textnode import TextNode, TextType
-from nodes.splitdelimiter import split_nodes_delimiter
-
+from source_to_destination.static_to_public import clear_dir
 def main():
-    node = TextNode("This is text with a `code block` word and a `second code block` word", TextType.TEXT)
-    new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
+    clear_dir()
     
 main()

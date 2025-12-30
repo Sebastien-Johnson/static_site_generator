@@ -3,7 +3,7 @@ class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag #string of html tag name
         self.value = value #string value of the tag 
-        self.children = children #children of the current node
+        self.children = children #list of 'children' of the current node 
         self.props = props #dict of attributes for the html tag
 
     def to_html(self):
@@ -13,7 +13,7 @@ class HTMLNode:
     #returns formatted string of node attributes IN html format
     def props_to_html(self):
         if self.props == None:
-            return ""
+            return "" #doesnt take up space if no prop, maintaints formatting when called in other functions (to_html)
         
         formatted_props = ""
 

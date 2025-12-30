@@ -13,7 +13,7 @@ class TextType(Enum):
 
 
 #the different kinds of raw inline text that can exists in html and markdown
-class TextNode:
+class TextNode: 
     def __init__(self, text, text_type, url=None):
         self.text = text
         self.text_type = text_type
@@ -28,23 +28,18 @@ class TextNode:
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
         
-    #turning a markdown node (textnode) into an html node
-def text_node_to_html_node(text_node):
-    if text_node.text_type not in TextType:
-        raise Exception("Invalid text type")
+#turning a textnode with raw markdown as text into an html node
+def text_node_to_html_node(text_node):  
     if text_node.text_type == TextType.TEXT:
         return LeafNode(None, text_node.text)
     if text_node.text_type == TextType.BOLD:
         return LeafNode("b", text_node.text)
     if text_node.text_type == TextType.ITALIC:
         return LeafNode("i", text_node.text)
+    if text_node.text_type == TextType.CODE:
+        return LeafNode("code", text_node.text)
     if text_node.text_type == TextType.LINK:
         return LeafNode("a", text_node.text, {" href" : text_node.url})
-    else:
-        return LeafNode(
-            "img", 
-            "", 
-            {
-                "src" : text_node.url, 
-                "alt" : text_node.text
-        })
+    if text_node.text_type == TextType.IMAGE:
+        return LeafNode("img", "", { "src" : text_node.url, "alt" : text_node.text})
+    raise Exception(f"Invalid text type: {text_node.text_type}") #if invalide text type

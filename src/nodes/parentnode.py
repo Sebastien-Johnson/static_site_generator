@@ -9,7 +9,7 @@ class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
         super().__init__(tag, None, children, props)
 
-    def to_html(self):
+    def to_html(self): #must have tag and children
         if self.tag is None:
             raise ValueError("No tag provided, node must have tag, please re-submit with one.")
         
@@ -21,8 +21,12 @@ class ParentNode(HTMLNode):
         #recursive call on children
         for child in self.children:
             children_html += child.to_html()
-        #props to html returns formatted html string of props if it exist
-        #children_html inserts recursive call within current html branch
+            #html nodes have only 'tag' and 'child'
+            #nested recursive call will keep adding nested tags if 'child' is just another node
+            #final child node with string content will be innermost nested string
+
+        #props to html returns formatted html string of props if it exist, empty space if not
+        #children_html inserts recursive call within current html branch of nested tags and final strings/content
         return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
     
 

@@ -12,5 +12,6 @@ class LeafNode(HTMLNode):
             raise ValueError("Node has no value, all nodes must have a value. Please provide one.")
         if self.tag == None:
             return self.value
-        #uses props_to_html to insert empty string or prop
+        #uses props_to_html to insert prop or empty string if none
+        #is final node so value is content/string and not another node
         return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"

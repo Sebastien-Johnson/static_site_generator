@@ -4,67 +4,57 @@ from src.nodes.textnode import TextNode, TextType
 
 def split_nodes_image(old_nodes):
     new_nodes = []
-    for old_node in old_nodes:
-        #appends and progresses if not a link/image node
-        if old_node.text_type != TextType.TEXT:
-            new_nodes.append(old_node)
+    for old_node in old_nodes: #iterates through list of nodes
+        if old_node.text_type != TextType.TEXT: #if not a text type (already a split node), 
+            new_nodes.append(old_node) # appends current old_node as is
             continue
         original_text = old_node.text
-        #grabs alt texts and links from current node
-        images = extract_markdown_images(original_text)
+        images = extract_markdown_images(original_text) #creates list of (alt, link) tuples
 
-        #appends and progresses if no link/image 
-        if len(images) == 0:
-            new_nodes.append(old_node)
+        if len(images) == 0: #if no links, append current old_node as is
+            new_nodes.append(old_node) # append current old_node as is
             continue
-
-        i = 0
-        current_image = f"![{images[i][0]}]({images[i][1]}"
-
-        while i <= len(images):
-
-            #update current section to be rest of previous split text
-
-
-            sections = original_text.split(f"![{images[0]}]({images[1]})", 1)
-            #removes if not both alt text and link present in section
+        for image in images: #iterates through each set of tuples
+            sections = original_text.split(f"![{image[0]}]({image[1]})", 1) #splits original text by tuple(alt, link)
             if len(sections) != 2:
                 raise ValueError("invalid markdown, image section not closed")
-            if sections[0] != "":
-                new_nodes.append(TextNode(sections[0], TextType.TEXT))
-            new_nodes.append(
-                TextNode(
-                    image[0],
-                    TextType.IMAGE,
-                    image[1],
-                )
-            )
-            original_text = sections[1]
-        if original_text != "":
-            new_nodes.append(TextNode(original_text, TextType.TEXT))
-    return new_nodes
+            
+            if sections[0] != "": #checks if empty section: link split text at begining or end
+                new_nodes.append(TextNode(sections[0], TextType.TEXT)) #creates text node if not empty section 
+            new_nodes.append(TextNode( image[0], TextType.IMAGE, image[1]))
+            #creates link node after potential text node to be in order in final list
+            original_text = sections[1] #sets original text to next section
+            
+        if original_text != "": #creates text node from remaining  text if possible
+            new_nodes.append(TextNode(original_text, TextType.TEXT)) 
+    return new_nodes #returns list of text nodes
 
 
 def split_nodes_link(old_nodes):
     new_nodes = []
-    for old_node in old_nodes:
-        if old_node.text_type != TextType.TEXT:
-            new_nodes.append(old_node)
+    for old_node in old_nodes: #iterates through list of nodes
+        if old_node.text_type != TextType.TEXT: #if not a text type (already a split node), 
+            new_nodes.append(old_node) # appends current old_node as is
             continue
-        original_text = old_node.text
-        links = extract_markdown_links(original_text)
-        if len(links) == 0:
-            new_nodes.append(old_node)
+        original_text = old_node.text 
+        links = extract_markdown_links(original_text) #creates list of (alt, link) tuples
+
+        if len(links) == 0: #if no links, 
+            new_nodes.append(old_node) # append current old_node as is
             continue
-        for link in links:
-            sections = original_text.split(f"[{link[0]}]({link[1]})", 1)
-            if len(sections) != 2:
-                raise ValueError("invalid markdown, link section not closed")
-            if sections[0] != "":
-                new_nodes.append(TextNode(sections[0], TextType.TEXT))
-            new_nodes.append(TextNode(link[0], TextType.LINK, link[1]))
-            original_text = sections[1]
-        if original_text != "":
-            new_nodes.append(TextNode(original_text, TextType.TEXT))
-    return new_nodes
+
+        for link in links: #iterates through list of links
+            sections = original_text.split(f"[{link[0]}]({link[1]})", 1) #splits original text by tuple(alt, link) ONCE
+            if len(sections) != 2: #should  only be 2 sections if only ONE link is removed
+                raise ValueError("invalid markdown, link section not closed") 
+            
+            if sections[0] != "": #checks if empty section: link split text at begining or end
+                new_nodes.append(TextNode(sections[0], TextType.TEXT)) #creates text node if not empty section 
+            new_nodes.append(TextNode(link[0], TextType.LINK, link[1])) 
+            #creates link node after potential text node to be in order in final list
+            original_text = sections[1] #sets original text to 2nd section to check for next possible links
+
+        if original_text != "": #creates text node from remaining  text if possible
+            new_nodes.append(TextNode(original_text, TextType.TEXT)) 
+    return new_nodes #returns list of old text nodes
 
