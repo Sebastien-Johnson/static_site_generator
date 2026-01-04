@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Generated content
-static_site_generator/public/
+public/
 
 # Distribution / packaging
 .Python
