@@ -9,11 +9,12 @@ def main():
         basepath = sys.argv[1]
     else:
         basepath = "/"
-    source_dir = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/content"
+    content_source_dir = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/content"
+    static_source_dir = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/static"
     dest_dir = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/docs"
-    clear_dir(source_dir, dest_dir)
+    clear_dir(static_source_dir, dest_dir)
     generate_pages_recursive(
-        source_dir,
+        content_source_dir,
         "template.html",
         dest_dir,
         basepath

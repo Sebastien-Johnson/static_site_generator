@@ -5,6 +5,7 @@ import shutil
 #clear (delete and remake) public directory
 #copy all files, subdirectories, nested files etc
 
+source = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/static"
 old_paths = []
 
 def clear_dir(source_dir, dest_dir):
