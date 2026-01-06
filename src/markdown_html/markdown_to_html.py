@@ -57,22 +57,22 @@ def paragraph_to_html_node(block):
 
 def header_to_html_node(block):
     #count # for header size
-    head_count = 0
+    level = 0
     for char in block:
         if char == "#":
-            head_count += 1
+            level += 1
         else:
             break
     #make sure header level isnt over 6
-    if head_count + 1 >= len(block):
-        raise ValueError(f"Invalid heading level: {head_count}")
+    if level + 1 >= len(block):
+        raise ValueError(f"Invalid heading level: {level}")
     
     #create text from text in block beyond heading
-    text = block[head_count +1:]
+    text = block[level + 1 :]
     #text to children
     children = text_to_children(text)
     #returns parent node with children
-    return ParentNode(f"h{head_count}", children)
+    return ParentNode(f"h{level}", children)
 
 def code_to_html_node(block):
     if not block.startswith("```") or not block.endswith("```"):
