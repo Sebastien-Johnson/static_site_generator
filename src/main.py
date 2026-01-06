@@ -13,6 +13,7 @@ def main():
     static_source_dir = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/static"
     dest_dir = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/docs"
     clear_dir(static_source_dir, dest_dir)
+
     generate_pages_recursive(
         content_source_dir,
         "template.html",

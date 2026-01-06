@@ -26,8 +26,6 @@ def generate_page(from_path, template_path, dest_path, basepath):
     template = template.replace("{{ Content }}", html)
     template = template.replace('href="/', f'href="{basepath}')
     template = template.replace('src="/', f'src="{basepath}')
-
-
     
     dest_dir_path = os.path.dirname(dest_path)
     #check if directory exists
@@ -51,13 +49,9 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
         html_page = page.replace(".md", ".html")
         new_dest_file = os.path.join(dest_dir_path, html_page)
         if os.path.isfile(new_content_path):
-            if new_dest_file[-3:] != ".md":
-                continue
-            #(markdown file, template, destination directory)
             generate_page(new_content_path, template_path, new_dest_file, basepath)
         else:
-            #is directory
-            #os.mkdir(new_dest_path)
+            os.mkdir(new_dest_dir)
             generate_pages_recursive(new_content_path, template_path, new_dest_dir, basepath)
     
     return
