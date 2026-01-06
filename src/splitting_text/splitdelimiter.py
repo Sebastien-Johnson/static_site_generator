@@ -1,6 +1,6 @@
 #convert raw markedown text into text nodes, ruturning a list of nodes
 #does not support nested inline elements (a bold word inside italics)
-from src.nodes.textnode import TextNode, TextType
+from nodes.textnode import TextNode, TextType
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):

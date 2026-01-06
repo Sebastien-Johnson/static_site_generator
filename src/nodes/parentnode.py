@@ -1,5 +1,5 @@
-from src.nodes.htmlnode import HTMLNode
-from src.nodes.leafnode import LeafNode
+from nodes.htmlnode import HTMLNode
+
 
 #parent of child nodes
 #must have child and tag to enclose child

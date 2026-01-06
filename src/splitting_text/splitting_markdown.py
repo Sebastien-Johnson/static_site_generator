@@ -1,6 +1,6 @@
 #splitting raw markdown into text nodes
-from src.splitting_text.extract_markdown import extract_markdown_images, extract_markdown_links
-from src.nodes.textnode import TextNode, TextType
+from splitting_text.extract_markdown import extract_markdown_images, extract_markdown_links
+from nodes.textnode import TextNode, TextType
 
 def split_nodes_image(old_nodes):
     new_nodes = []

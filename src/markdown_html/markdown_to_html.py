@@ -1,10 +1,10 @@
 #converts full markdown doc into single parent html node with <div> tag containing all the children nodes
-from src.splitting_text.markdown_to_blocks import markdown_to_blocks, block_to_block_type, BlockType
-from src.nodes.htmlnode import HTMLNode
-from src.nodes.parentnode import ParentNode
-from src.nodes.leafnode import LeafNode
-from src.nodes.textnode import TextNode, TextType, text_node_to_html_node
-from src.splitting_text.text_to_textnodes import text_to_textnodes
+from splitting_text.markdown_to_blocks import markdown_to_blocks, block_to_block_type, BlockType
+from nodes.htmlnode import HTMLNode
+from nodes.parentnode import ParentNode
+from nodes.leafnode import LeafNode
+from nodes.textnode import TextNode, TextType, text_node_to_html_node
+from splitting_text.text_to_textnodes import text_to_textnodes
 
 def markdown_to_html_node(markdown):
     #takes raw markdown text and returns parent node with div tag and child nodes of each type

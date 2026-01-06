@@ -1,4 +1,4 @@
-from src.nodes.htmlnode import HTMLNode
+from nodes.htmlnode import HTMLNode
 
 #a leafnode = a single htmlnode with no children (so its the last in a chain)
 #Because of this, it has to have a value and a tag, since it would contain nothing else otherwise

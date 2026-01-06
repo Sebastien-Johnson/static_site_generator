@@ -5,14 +5,14 @@ import shutil
 #clear (delete and remake) public directory
 #copy all files, subdirectories, nested files etc
 
-public_path = "/home/sebas/workspace/github.com/sebastien-johnson/bdev-coursework/static_site_gen/static_site_generator/public"
-source = "/home/sebas/workspace/github.com/sebastien-johnson/bdev-coursework/static_site_gen/static_site_generator/static"
+public_path = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/public"
+source = "/home/sebas/workspace/github.com/sebastien-johnson/BDev-Coursework/static_site_generator/static"
 old_paths = []
 
 def clear_dir(path = public_path):
     #copies old path
     old_paths.append(path)
-    #deletes old directory
+    #clears old path
     shutil.rmtree(path)
     #makes new dir at old path
     os.mkdir(path)
@@ -28,7 +28,6 @@ def refill_dir(source_path, dest_path):
             shutil.copy(new_source, dest_path)
         else:
             os.mkdir(new_dest)
-            refill_dir(new_source, new_dest )
-
+            refill_dir(new_source, new_dest)
+    
     return
- 
