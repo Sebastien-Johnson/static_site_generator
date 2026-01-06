@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Generated content
-public/
+
 
 # Distribution / packaging
 .Python
